@@ -70,6 +70,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Restart",
+            "id": "a5b3cb09-ce3c-48b7-938e-d7118b6b301d",
+            "actions": [
+                {
+                    "name": "Restart",
+                    "type": "Value",
+                    "id": "b4e74581-190a-4e35-933b-16e4afc1ba4c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4c6107a6-5cd2-4c11-8b91-6257b3f8b245",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

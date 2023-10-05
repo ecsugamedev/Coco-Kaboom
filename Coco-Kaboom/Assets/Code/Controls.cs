@@ -92,6 +92,34 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Restart"",
+            ""id"": ""a5b3cb09-ce3c-48b7-938e-d7118b6b301d"",
+            ""actions"": [
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Value"",
+                    ""id"": ""b4e74581-190a-4e35-933b-16e4afc1ba4c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4c6107a6-5cd2-4c11-8b91-6257b3f8b245"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -100,6 +128,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
+        // Restart
+        m_Restart = asset.FindActionMap("Restart", throwIfNotFound: true);
+        m_Restart_Restart = m_Restart.FindAction("Restart", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -211,9 +242,59 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // Restart
+    private readonly InputActionMap m_Restart;
+    private List<IRestartActions> m_RestartActionsCallbackInterfaces = new List<IRestartActions>();
+    private readonly InputAction m_Restart_Restart;
+    public struct RestartActions
+    {
+        private @Controls m_Wrapper;
+        public RestartActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Restart => m_Wrapper.m_Restart_Restart;
+        public InputActionMap Get() { return m_Wrapper.m_Restart; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(RestartActions set) { return set.Get(); }
+        public void AddCallbacks(IRestartActions instance)
+        {
+            if (instance == null || m_Wrapper.m_RestartActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RestartActionsCallbackInterfaces.Add(instance);
+            @Restart.started += instance.OnRestart;
+            @Restart.performed += instance.OnRestart;
+            @Restart.canceled += instance.OnRestart;
+        }
+
+        private void UnregisterCallbacks(IRestartActions instance)
+        {
+            @Restart.started -= instance.OnRestart;
+            @Restart.performed -= instance.OnRestart;
+            @Restart.canceled -= instance.OnRestart;
+        }
+
+        public void RemoveCallbacks(IRestartActions instance)
+        {
+            if (m_Wrapper.m_RestartActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IRestartActions instance)
+        {
+            foreach (var item in m_Wrapper.m_RestartActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_RestartActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public RestartActions @Restart => new RestartActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IRestartActions
+    {
+        void OnRestart(InputAction.CallbackContext context);
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class PlayerMove : MonoBehaviour
 
         // When jump is performed call method Jump()
         playerControls.Movement.Jump.started += _ => Jump();
+
+        playerControls.Restart.Restart.performed += _ => Restart();
     }
 
     private void Update()
@@ -117,5 +120,11 @@ public class PlayerMove : MonoBehaviour
             jumpTime = jumpStartTime;
         }
 
+    }
+
+    void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
