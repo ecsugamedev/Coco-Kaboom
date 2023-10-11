@@ -3806,9 +3806,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 25
   smoothMove: 0.625
-  jumpStartTime: 0.75
+  jumpStartTime: 1
   checkRadius: 0.25
-  jumpForce: 5
+  jumpForce: 30
   ground:
     serializedVersion: 2
     m_Bits: 64
@@ -3828,7 +3828,7 @@ Rigidbody2D:
   m_Mass: 0.7853982
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

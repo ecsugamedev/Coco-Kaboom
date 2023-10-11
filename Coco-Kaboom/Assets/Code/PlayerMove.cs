@@ -51,39 +51,27 @@ public class PlayerMove : MonoBehaviour
         player = gameObject.GetComponent<Rigidbody2D>();
 
         // When jump is performed call method Jump()
-        playerControls.Movement.Jump.started += _ => Jump();
+        //playerControls.Movement.Jump.performed += _ => Jump();
 
         playerControls.Restart.Restart.performed += _ => Restart();
     }
 
     private void Update()
     {
-        Flip();
-
-        // Checks if the players "feet" are touching what constitutes the ground
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, ground);
+        move = playerControls.Movement.Move.ReadValue<Vector2>();
 
         //checks if jump is being held
         isJumping = playerControls.Movement.Jump.ReadValue<float>() > 0;
 
-        // If player is still in jump, generate height, until max jump time reached
-        if (isJumping)
+        if (isGrounded)
         {
-            if (jumpTime > 0)
-            {
-                player.AddForce(Vector2.up * jumpForce);
-                jumpTime -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
+            jumpTime = jumpStartTime;
         }
     }
 
     private void FixedUpdate()
     {
-        move = playerControls.Movement.Move.ReadValue<Vector2>();
+        Flip();
 
         if (isGrounded)
         {
@@ -93,10 +81,25 @@ public class PlayerMove : MonoBehaviour
         else
         {
             // Set the player veloccity based on cardinal direction from controls, but is in the air so horizontal mobility is halved
-            player.velocity = Vector2.SmoothDamp(player.velocity, (move * speed)/2, ref baseVel, smoothMove);
+            player.velocity = Vector2.SmoothDamp(player.velocity, (move * speed) / 2, ref baseVel, smoothMove);
         }
 
-        
+        // Checks if the players "feet" are touching what constitutes the ground
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, ground);
+
+        // If player is still in jump, generate height, until max jump time reached
+        if (isJumping)
+        {
+            if (jumpTime > 0)
+            {
+                player.AddForce(Vector2.up * jumpForce);
+                jumpTime -= Time.fixedDeltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
     }
 
     // Chages which direction the player is facing
@@ -106,20 +109,6 @@ public class PlayerMove : MonoBehaviour
             gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         if (player.velocity.x < 0f)
             gameObject.transform.localScale = new Vector3(-1f, 1f, 1f);
-    }
-
-    // Allows player to jump
-    void Jump()
-    {
-
-        Debug.Log("Jump Pressed");
-
-        // Performs jump
-        if (isGrounded)
-        {
-            jumpTime = jumpStartTime;
-        }
-
     }
 
     void Restart()
