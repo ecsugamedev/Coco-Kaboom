@@ -5954,6 +5954,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 937499578}
     m_Modifications:
     - target: {fileID: 1764386432185602419, guid: 0cc21f75a605d7448921200c3f1fd3eb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764386432185602419, guid: 0cc21f75a605d7448921200c3f1fd3eb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764386432185602419, guid: 0cc21f75a605d7448921200c3f1fd3eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.08429
       objectReference: {fileID: 0}
@@ -7153,7 +7161,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 247.5, y: 158.9}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 125, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2049405210
 MonoBehaviour:
@@ -7168,14 +7176,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8576898, b: 0, a: 1}
+  m_Color: {r: 0.990566, g: 0.9557108, b: 0.09967952, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: f0e93c4a7cb0b434f81f7f53c730321a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7446,11 +7454,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1764386432185602419, guid: 0cc21f75a605d7448921200c3f1fd3eb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1764386432185602419, guid: 0cc21f75a605d7448921200c3f1fd3eb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1764386432185602419, guid: 0cc21f75a605d7448921200c3f1fd3eb, type: 3}
       propertyPath: m_LocalScale.z
