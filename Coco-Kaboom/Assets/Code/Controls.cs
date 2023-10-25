@@ -122,7 +122,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Game pad controler"",
+            ""bindingGroup"": ""Game pad controler"",
+            ""devices"": []
+        }
+    ]
 }");
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
@@ -288,6 +294,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     public RestartActions @Restart => new RestartActions(this);
+    private int m_GamepadcontrolerSchemeIndex = -1;
+    public InputControlScheme GamepadcontrolerScheme
+    {
+        get
+        {
+            if (m_GamepadcontrolerSchemeIndex == -1) m_GamepadcontrolerSchemeIndex = asset.FindControlSchemeIndex("Game pad controler");
+            return asset.controlSchemes[m_GamepadcontrolerSchemeIndex];
+        }
+    }
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);

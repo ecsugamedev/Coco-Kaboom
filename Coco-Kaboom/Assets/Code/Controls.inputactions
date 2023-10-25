@@ -100,5 +100,11 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Game pad controler",
+            "bindingGroup": "Game pad controler",
+            "devices": []
+        }
+    ]
 }
