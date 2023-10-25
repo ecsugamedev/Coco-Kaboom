@@ -8,26 +8,8 @@ using UnityEngine.SceneManagement;
 public class HUD : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
-
-    public string elapsedTimeStr;
-
-    public bool isTiming = true;
-
-    Collider2D winBox;
-
-    public void Start()
-    {
-        elapsedTimeStr = Time.timeSinceLevelLoad.ToString("00:00.00");
-    }
-
-    public void Update()
-    {
-        if (isTiming)
-        {
-            elapsedTimeStr = Time.timeSinceLevelLoad.ToString("00:00.00");
-            timeText.text = elapsedTimeStr;
-        }
-    }
+    public TextMeshProUGUI finalTime;
+    public TextMeshProUGUI highScore;
 
     public void Replay()
     {

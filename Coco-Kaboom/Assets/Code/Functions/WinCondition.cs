@@ -7,7 +7,7 @@ public class WinCondition : MonoBehaviour
     GameObject player;
 
     [SerializeField]
-    GameObject HUD, WinPanel;
+    GameObject Timer, WinPanel;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class WinCondition : MonoBehaviour
     {
         if(collision.gameObject == player)
         {
-            HUD.GetComponent<HUD>().isTiming = false;
+            Timer.GetComponent<Timer>().isTiming = false;
             WinPanel.SetActive(true);
             Time.timeScale = 0.125f;
         }
