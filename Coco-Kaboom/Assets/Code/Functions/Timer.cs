@@ -87,6 +87,8 @@ public class Timer : MonoBehaviour
                 // Adds new score to List, and then saves the current list to JSON Pref
                 addScore.scores.Add(score);
                 addScore.SaveScore(addScore);
+
+                scoreSet = true;
             }
         }
     }
