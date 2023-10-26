@@ -9,6 +9,9 @@ public class WinCondition : MonoBehaviour
     [SerializeField]
     GameObject Timer, WinPanel;
 
+    [SerializeField]
+    AudioSource sound;
+
     private void Awake()
     {
         player = GameObject.Find("Player");
@@ -21,6 +24,7 @@ public class WinCondition : MonoBehaviour
             Timer.GetComponent<Timer>().isTiming = false;
             WinPanel.SetActive(true);
             Time.timeScale = 0.125f;
+            sound.Play();
         }
     }
 }
