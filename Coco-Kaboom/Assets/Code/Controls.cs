@@ -105,6 +105,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""91da41d7-31ad-45a1-92f9-366fab2fec8e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -116,6 +125,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93150186-4578-4d1c-a7c0-076b59aa33d0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -137,6 +157,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Restart
         m_Restart = asset.FindActionMap("Restart", throwIfNotFound: true);
         m_Restart_Restart = m_Restart.FindAction("Restart", throwIfNotFound: true);
+        m_Restart_Pause = m_Restart.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -253,11 +274,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Restart;
     private List<IRestartActions> m_RestartActionsCallbackInterfaces = new List<IRestartActions>();
     private readonly InputAction m_Restart_Restart;
+    private readonly InputAction m_Restart_Pause;
     public struct RestartActions
     {
         private @Controls m_Wrapper;
         public RestartActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Restart => m_Wrapper.m_Restart_Restart;
+        public InputAction @Pause => m_Wrapper.m_Restart_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Restart; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -270,6 +293,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IRestartActions instance)
@@ -277,6 +303,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IRestartActions instance)
@@ -311,5 +340,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IRestartActions
     {
         void OnRestart(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
