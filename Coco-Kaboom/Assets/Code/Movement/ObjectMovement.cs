@@ -6,38 +6,45 @@ public class ObjectMovement : MonoBehaviour
 {
     public Transform startPoint; // The starting point of the platform
     public Transform endPoint;   // The ending point of the platform
-    public float moveSpeed = 1.0f;
+    private float moveSpeed = 0.1f;
+    public Rigidbody2D rb;
 
-    private Vector3 currentPosition;
+    //private Vector3 currentPosition;
     public bool movingTowardsEnd = true;
+    //private int targetIndex;
 
     private void Start()
     {
-        currentPosition = startPoint.position;
+        gameObject.transform.position = startPoint.position;
+        //targetIndex = 1;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (movingTowardsEnd)
         {
-            currentPosition = Vector3.MoveTowards(currentPosition, endPoint.position, moveSpeed * Time.deltaTime);
+            rb.position += new Vector2(moveSpeed, 0.0f);
+            //currentPosition = Vector3.MoveTowards(currentPosition, endPoint.position, moveSpeed * Time.deltaTime);
         }
         else
         {
-            currentPosition = Vector3.MoveTowards(currentPosition, startPoint.position, moveSpeed * Time.deltaTime);
+            rb.position -= new Vector2(moveSpeed, 0.0f);
+            //currentPosition = Vector3.MoveTowards(currentPosition, startPoint.position, moveSpeed * Time.deltaTime);
         }
-
-        transform.position = currentPosition;
+        //Debug.Log(Vector3.Distance(rb.position, endPoint.position));
+        //transform.position = currentPosition;
 
         // Check if the platform has reached the end point or starting point
-        if (Vector3.Distance(currentPosition, endPoint.position) < 0.01f)
+        if (Vector3.Distance(rb.position, endPoint.position) < 0.4f)
         {
             movingTowardsEnd = false;
+            //Debug.Log("ya");
         }
-        else if (Vector3.Distance(currentPosition, startPoint.position) < 0.01f)
+        else if (Vector3.Distance(rb.position, startPoint.position) < 0.4f)
         {
             movingTowardsEnd = true;
         }
+        
     }
 }
 
