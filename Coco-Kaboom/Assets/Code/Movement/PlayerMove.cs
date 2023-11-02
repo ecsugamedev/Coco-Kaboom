@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMove : MonoBehaviour
 {
     public Controls playerControls;
-    public Animator anim;
+    public Animator anim; //--Gets reference to animator
 
     [SerializeField]
     private float speed, smoothMove, jumpStartTime, checkRadius, jumpForce;
@@ -88,7 +88,7 @@ public class PlayerMove : MonoBehaviour
             // Set the player veloccity based on cardinal direction from controls, but is in the air so horizontal mobility is halved
             player.velocity = Vector2.SmoothDamp(player.velocity, (move * speed) / 2, ref baseVel, smoothMove);
         }
-        anim.SetFloat("speed", player.velocity.magnitude);
+        anim.SetFloat("speed", player.velocity.magnitude); //-- Updates the float in animator
         // Checks if the players "feet" are touching what constitutes the ground
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, ground);
 
